@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+    background: #6fcf97;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header .logo span {
+    font-weight: bold;
+  }
+  
+  .header ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .header ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .hero {
+    background: #c6f3d6;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .hero-text h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .feature {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quote {
+    background: #6fcf97;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin: 2rem 0;
+  }
+  
+  .content {
+    padding: 2rem;
+  }
+  
+  .articles {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  article {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  article img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  article h3 {
+    margin: 1rem 0;
+    font-size: 1rem;
+  }
+  
+  article p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  

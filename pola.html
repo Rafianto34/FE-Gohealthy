@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atur Pola Makan & Riwayat</title>
+  <link rel="stylesheet" href="pola.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Go<span>Healthy</span></div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Artikel</a></li>
+        <li><a href="#">Riwayat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <!-- Form Section -->
+    <section class="form-section">
+      <h2>Atur Pola Makan</h2>
+      <form>
+        <div class="form-group">
+          <label for="date">Tanggal:</label>
+          <input type="date" id="date" required>
+        </div>
+        <div class="form-group">
+          <label for="food">Nama Makanan:</label>
+          <input type="text" id="food" placeholder="Nama makanan" required>
+        </div>
+        <div class="form-group">
+          <label for="food-calories">Total Kalori:</label>
+          <input type="number" id="food-calories" placeholder="Kalori makanan" required>
+        </div>
+        <div class="form-group">
+          <label for="drink">Nama Minuman:</label>
+          <input type="text" id="drink" placeholder="Nama minuman" required>
+        </div>
+        <div class="form-group">
+          <label for="drink-calories">Total Kalori:</label>
+          <input type="number" id="drink-calories" placeholder="Kalori minuman" required>
+        </div>
+        <button type="submit" id="save-button">Simpan</button>
+      </form>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section">
+      <h2>Hasil Riwayat</h2>
+      <div class="history-list">
+        <div class="history-item">
+          <p><strong>Nasi Goreng:</strong> 600 kal</p>
+          <p><strong>Redbull Energy Drink:</strong> 110 kal</p>
+          <p>Total: 710 kal</p>
+          <span>Wednesday - 04/08</span>
+        </div>
+        <div class="history-item">
+          <p><strong>Mie Cacahan:</strong> 500 kal</p>
+          <p><strong>Thai Tea:</strong> 250 kal</p>
+          <p><strong>Udang Keju (4 pcs):</strong> 320 kal</p>
+          <p>Total: 1070 kal</p>
+          <span>Thursday - 05/08</span>
+        </div>
+        <div class="history-item">
+          <p><strong>Nasi Mawut:</strong> 700 kal</p>
+          <p>Total: 700 kal</p>
+          <span>Friday - 06/08</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
