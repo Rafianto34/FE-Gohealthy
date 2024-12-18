@@ -1,0 +1,114 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #6fcf97;
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #6fcf97;
+    color: white;
+  }
+  
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .header nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Main Content */
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  .schedule-form {
+    width: 90%;
+    max-width: 700px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    color: #333;
+  }
+  
+  .form-header {
+    display: flex;
+    gap: 1rem;
+    background-color: #e0e0e0;
+    padding: 0.75rem;
+    border-radius: 5px;
+  }
+  
+  .form-header select,
+  .form-header input,
+  .form-header button {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-header button {
+    background-color: #6fcf97;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .form-body {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+  
+  .left-section,
+  .right-section {
+    flex: 1;
+  }
+  
+  .left-section label,
+  .right-section label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+    font-weight: bold;
+  }
+  
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    height: 100px;
+  }
+  
