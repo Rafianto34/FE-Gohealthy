@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GoHealthy</title>
   <link rel="stylesheet" href="home.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <header class="header">
-    <div class="logo">Go<span>Healthy</span></div>
+    <div class="logo"><img src="C:\Users\ASUS\Documents\Sekul telu\Materi\PBO\TUGAS BESAR\FE\image\logo.png" ></div>
     <nav>
       <ul>
         <li><a href="#">Home</a></li>
@@ -16,14 +17,17 @@
         <li><a href="#">Riwayat</a></li>
       </ul>
     </nav>
-    <div class="profile"></div>
+    <div class="icons">
+      <button id="notification-btn" class="icon-btn">🔔</button>
+      <button id="profile-btn" class="icon-btn">👤</button>
+    </div>
   </header>
   
   <main>
     <section class="hero">
       <div class="hero-text">
         <h1>Teman Sejati Perjalanan Sehat Anda</h1>
-        <p>Atur pola makan, pengingat minum obat, edukasi kesehatan dan penjadwalan kegiatan. GoHealthy siap membantu!</p>
+        <p>Atur pola makan, pengingat minum obat, edukasi kesehatan, dan penjadwalan kegiatan. GoHealthy siap membantu!</p>
       </div>
       <div class="features">
         <div class="feature">Atur Pola Makan</div>
@@ -36,7 +40,7 @@
       <p>"Hidup sehat bukan soal pilihan, tetapi kebutuhan untuk masa depan yang lebih baik."</p>
     </section>
     <section class="content">
-      <h2>Content</h2>
+      <h2>Artikel Populer</h2>
       <div class="articles">
         <article>
           <img src="img1.jpg" alt="Kanker Lambung">
@@ -56,5 +60,7 @@
       </div>
     </section>
   </main>
+
+  <script src="home.js"></script>
 </body>
 </html>
