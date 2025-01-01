@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Schedule Form</title>
-  <link rel="stylesheet" href="inputmakan.css">
-</head>
-<body>
-  <header class="header">
-    <div class="logo">
-      <img src="../image/logo.png" alt="Logo">
-    </div>
-    <nav>
-      <ul>
-        <li><a href="../home/home.html">Home</a></li>
-        <li><a href="../artikel/artikel.html">Artikel</a></li>
-        <li><a href="../pola/pola.html">Riwayat</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="main-container">
-    <h1>DATA <br> SCHEDULE</h1>
-    <section class="schedule-form">
-      <div class="form-header">
-        <select id="category" onchange="updateForm()">
-          <option value="makan">Makan</option>
-          <option value="obat">Obat</option>
-          <option value="olahraga">Olahraga</option>
-        </select>
-        <input type="date" id="date-input">
-        <input type="time" id="time-input">
-        <button id="add-btn">Add</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Schedule Form</title>
+    <link rel="stylesheet" href="inputmakan.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="../image/logo.png" alt="Logo" />
       </div>
-      <div class="form-body" id="form-body">
-        <div class="left-section">
-          <label for="judul">Judul</label>
-          <input type="text" id="judul" placeholder="Masukkan Judul">
-        </div>
-        <div class="right-section">
-          <label for="catatan">Catatan</label>
-          <textarea id="catatan" placeholder="Masukkan Catatan"></textarea>
-        </div>
-      </div>
-    </section>
-  </main>
+      <nav>
+        <ul>
+          <li><a href="../home/home.html">Home</a></li>
+          <li><a href="../artikel/artikel.html">Artikel</a></li>
+          <li><a href="../pola/pola.html">Riwayat</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <script src="inputmakan.js"></script>
-</body>
+    <main class="main-container">
+      <h1>
+        DATA <br />
+        SCHEDULE
+      </h1>
+      <section class="schedule-form">
+        <div class="form-header">
+          <select id="category" onchange="updateForm()">
+            <option value="makan">Makan</option>
+            <option value="obat">Obat</option>
+            <option value="olahraga">Olahraga</option>
+          </select>
+          <input type="date" id="date-input" />
+          <input type="time" id="time-input" />
+          <button id="add-btn">Add</button>
+        </div>
+        <div class="form-body" id="form-body">
+          <div class="left-section">
+            <label for="judul">Judul</label>
+            <input type="text" id="judul" placeholder="Masukkan Judul" />
+          </div>
+          <div class="right-section">
+            <label for="catatan">Catatan</label>
+            <textarea id="catatan" placeholder="Masukkan Catatan"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="inputmakan.js"></script>
+  </body>
 </html>
