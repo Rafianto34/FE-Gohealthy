@@ -1,34 +1,60 @@
-/* General Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #F2F9F4;
+  background-color: #2c7744;
 }
 
+/* Header */
 .header {
-  background-color: #6FCF97;
-  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  color: white;
+  justify-content: space-between;
+  background: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.header .logo img {
-  max-height: 50px;
-}
-
-nav ul {
-  list-style: none;
+.logo {
   display: flex;
-  gap: 1rem;
+  align-items: center;
 }
 
-nav ul li a {
-  color: white;
+.logo-img {
+  height: 60px;
+  width: auto;
+  margin-right: 1rem;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
   text-decoration: none;
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: 0.3s ease, transform 0.2s ease;
 }
 
+.navbar ul li a:hover {
+  background: #45a049;
+  transform: scale(1.1);
+}
+
+/* Main Container */
 .main-container {
   display: flex;
   justify-content: space-between;
@@ -106,4 +132,66 @@ nav ul li a {
   margin-top: 0.5rem;
   color: gray;
   font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .form-section,
+  .history-section {
+    padding: 1.5rem;
+  }
+
+  .form-section h2,
+  .history-section h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-group input {
+    font-size: 0.95rem;
+  }
+
+  #save-button {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .logo-img {
+    height: 50px;
+  }
+
+  .form-section,
+  .history-section {
+    padding: 1rem;
+  }
+
+  .form-section h2,
+  .history-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input {
+    font-size: 0.9rem;
+  }
+
+  #save-button {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .history-item {
+    padding: 0.8rem;
+  }
 }

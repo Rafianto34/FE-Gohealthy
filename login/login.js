@@ -1,28 +1,25 @@
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
+document.getElementById('login-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
 
   try {
     // Konsumsi API untuk login
-    const response = await fetch('http://localhost:8080/api/auth/login', {
+    const response = await fetch('https://be-gohealthy-production.up.railway.app/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (response.ok) {
       const result = await response.json();
 
-      // Enkripsi token menggunakan CryptoJS
+      // Simpan token ke localStorage (tanpa enkripsi)
       const token = result.data.token;
-      const salt = CryptoJS.lib.WordArray.random(128 / 8).toString(); // Generate salt
-      const encryptedToken = CryptoJS.AES.encrypt(token, salt).toString(); // Encrypt token with salt
-      localStorage.setItem('token', encryptedToken); // Simpan token terenkripsi di localStorage
-      localStorage.setItem('salt', salt); // Simpan salt di localStorage
+      localStorage.setItem('token', token);
 
       // Notifikasi sukses dan redirect
       Swal.fire({
@@ -31,19 +28,19 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        window.location.href = '/home.html'; // Redirect ke halaman home
+        window.location.href = '../home/home.html'; // Pastikan URL ini benar
       });
     } else {
-      // Notifikasi gagal login
+      // Tangani kesalahan login
       const error = await response.json();
       Swal.fire({
         icon: 'error',
         title: 'Login gagal',
-        text: error.errors || 'Username atau password salah.',
+        text: error.message || 'Username atau password salah.',
       });
     }
   } catch (err) {
-    // Penanganan error
+    // Penanganan error koneksi atau lainnya
     Swal.fire({
       icon: 'error',
       title: 'Terjadi kesalahan',

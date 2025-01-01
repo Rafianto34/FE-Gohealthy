@@ -3,7 +3,6 @@ const BASE_URL = 'http://localhost:8080/api';
 
 // Ambil elemen DOM
 const relatedPostsContainer = document.getElementById('related-posts');
-const commentsSectionContainer = document.getElementById('comments-section');
 
 // Fungsi untuk memuat artikel terkait
 async function loadRelatedPosts() {
@@ -30,7 +29,7 @@ async function loadRelatedPosts() {
           const articleId = post.getAttribute('data-id');
           alert(`Baca lebih lanjut tentang artikel ID: ${articleId}`);
           // Redirect ke halaman detail artikel (opsional)
-          // window.location.href = `/article/${articleId}`;
+          // window.location.href = `/page.html//${articleId}`;
         });
       });
     } else {
@@ -40,31 +39,5 @@ async function loadRelatedPosts() {
     relatedPostsContainer.innerHTML = '<p>Terjadi kesalahan saat memuat artikel terkait.</p>';
   }
 }
-
-// Fungsi untuk memuat komentar
-async function loadComments() {
-  try {
-    const response = await fetch(`${BASE_URL}/comments`);
-    if (response.ok) {
-      const { data: comments } = await response.json();
-      
-      commentsSectionContainer.innerHTML = comments.map(comment => `
-        <div class="comment-card">
-          <img src="${comment.userImage}" alt="${comment.username}">
-          <div>
-            <h4>${comment.username}</h4>
-            <p>${comment.message}</p>
-          </div>
-        </div>
-      `).join('');
-    } else {
-      commentsSectionContainer.innerHTML = '<p>Gagal memuat komentar.</p>';
-    }
-  } catch (error) {
-    commentsSectionContainer.innerHTML = '<p>Terjadi kesalahan saat memuat komentar.</p>';
-  }
-}
-
 // Panggil fungsi untuk memuat data
 loadRelatedPosts();
-loadComments();

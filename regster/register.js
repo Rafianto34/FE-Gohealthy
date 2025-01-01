@@ -1,17 +1,28 @@
 document.getElementById("registerForm").addEventListener("submit", async function (event) {
   event.preventDefault();
 
-  const email = document.getElementById("reg-email").value;
-  const username = document.getElementById("reg-username").value;
+  const email = document.getElementById("reg-email").value.trim();
+  const username = document.getElementById("reg-username").value.trim();
+  const name = document.getElementById("reg-name").value.trim();
   const password = document.getElementById("reg-password").value;
   const confirmPassword = document.getElementById("reg-confirm-password").value;
+
+  // Validasi email
+  if (!validateEmail(email)) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Masukkan email yang valid.',
+    });
+    return;
+  }
 
   // Validasi panjang password
   if (password.length < 8) {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Password harus terdiri dari minimal 8 karakter',
+      text: 'Password harus terdiri dari minimal 8 karakter.',
     });
     return;
   }
@@ -21,7 +32,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Pastikan password sudah sama',
+      text: 'Pastikan password sudah sama.',
     });
     return;
   }
@@ -34,13 +45,13 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
         email: email,
+        username: username,
+        name: name,
         password: password,
       }),
     });
 
-    // Parse respons API
     const data = await response.json();
 
     if (response.ok) {
@@ -49,19 +60,16 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         title: 'Berhasil',
         text: 'Registrasi berhasil!',
       }).then(() => {
-        // Redirect ke halaman login setelah sukses
-        window.location.href = '/login.html';
+        window.location.href = '../login.html';
       });
     } else {
-      // Tampilkan pesan error dari server
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: data.message || 'Terjadi kesalahan saat registrasi',
+        text: data.message || 'Terjadi kesalahan saat registrasi.',
       });
     }
   } catch (error) {
-    // Tangani error koneksi atau lainnya
     Swal.fire({
       icon: 'error',
       title: 'Error',
@@ -69,3 +77,9 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     });
   }
 });
+
+// Fungsi untuk validasi email
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}

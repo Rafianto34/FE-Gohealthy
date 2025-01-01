@@ -22,44 +22,47 @@ if (!token) {
   });
 }
 
-// Event untuk tombol notifikasi
-document.getElementById('notification-btn').addEventListener('click', async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/notifications`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  const articlesData = [
+    {
+      image: "img1.jpg",
+      title: "Waspadai Gejala Kanker Lambung, Sekilas Mirip dengan Sakit Maag",
+    },
+    {
+      image: "img2.jpg",
+      title: "Sering Makan Daging Merah Bisa Picu Kanker, Benarkah? Ini Faktanya",
+    },
+    {
+      image: "img3.jpg",
+      title: "Benarkah Kumur Air Garam Bisa Atasi Sariawan?",
+    },
+  ];
 
-    if (response.ok) {
-      const notifications = await response.json();
+  const articlesContainer = document.getElementById("articles-container");
 
-      const notificationHTML = notifications.data
-        .map((notif) => `<li>${notif.message}</li>`)
-        .join('');
+  // Loop through articlesData to generate cards
+  articlesData.forEach((article) => {
+    const articleCard = document.createElement("article");
+    articleCard.classList.add("article");
 
-      Swal.fire({
-        title: 'Notifikasi',
-        html: `<ul>${notificationHTML}</ul>`,
-        icon: 'info',
-        confirmButtonText: 'OK'
-      });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Gagal Memuat Notifikasi',
-        text: 'Terjadi kesalahan saat memuat notifikasi.',
-      });
-    }
-  } catch (error) {
+    articleCard.innerHTML = `
+      <img src="${article.image}" alt="${article.title}">
+      <h3>${article.title}</h3>
+    `;
+
+    articlesContainer.appendChild(articleCard);
+  });
+
+  // Example Profile Button Handler (unchanged)
+  document.getElementById("profile-btn").addEventListener("click", () => {
     Swal.fire({
-      icon: 'error',
-      title: 'Terjadi Kesalahan',
-      text: 'Tidak dapat terhubung ke server.',
+      icon: "info",
+      title: "Profile",
+      text: "Profile button clicked!",
     });
-  }
+  });
 });
+
 
 // Event untuk tombol profil
 document.getElementById('profile-btn').addEventListener('click', async () => {
@@ -94,7 +97,7 @@ document.getElementById('profile-btn').addEventListener('click', async () => {
         if (result.isConfirmed) {
           window.location.href = './edit-profile.html';
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          localStorage.clear(); // Hapus token
+          localStorage.clear();
           window.location.href = './login.html';
         }
       });
