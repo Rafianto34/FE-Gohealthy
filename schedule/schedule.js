@@ -1,4 +1,4 @@
-const BASE_URL = 'https://be-gohealthy-production.up.railway.app/api/schedule'; // Ganti dengan URL API Anda
+const BASE_URL = 'https://be-gohealthy-production.up.railway.app//api/users'; // Ganti dengan URL API Anda
 const scheduleContainer = document.getElementById('schedule-container');
 
 // Fungsi untuk memuat jadwal dari API
@@ -46,13 +46,6 @@ function renderSchedule(schedules) {
     `)
     .join('');
 }
-
-// Tambahkan event listener untuk tombol
-document.querySelectorAll('.btn').forEach(button => {
-  button.addEventListener('click', () => {
-    alert(`Anda menekan tombol: ${button.textContent}`);
-  });
-});
 
 // Panggil fungsi untuk memuat jadwal
 loadSchedule();
