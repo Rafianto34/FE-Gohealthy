@@ -1,81 +1,151 @@
-/* General Reset */
+/* General Styles */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #2c7744;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #d4fc79;
-  }
-  
-  .logo span {
-    color: #fff;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2c7744;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Pastikan halaman memenuhi tinggi layar */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo img {
+  width: 150px; /* Pastikan logo tetap proporsional */
+}
+
+/* Login Container */
+.login-container {
+  background: #3c895a;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 90%; /* Gunakan 90% lebar untuk layar kecil */
+  max-width: 400px; /* Tetapkan maksimum untuk layar besar */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center; /* Pusatkan teks di dalam kontainer */
+}
+
+.login-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #d4fc79;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.7rem;
+  background: #d4fc79;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #2c7744;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.login-button:hover {
+  background: #a8e063;
+}
+
+.register-link {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.register-link a {
+  color: #d4fc79;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
   .login-container {
-    background: #3c895a;
-    border-radius: 10px;
-    padding: 2rem;
-    width: 300px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    width: 95%; /* Lebih lebar untuk layar sedang */
+    padding: 1.5rem;
   }
-  
+
   .login-form h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
   }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
+
   .form-group label {
-    display: block;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
   }
-  
+
   .form-group input {
-    width: 100%;
+    font-size: 0.9rem;
     padding: 0.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
   }
-  
+
   .login-button {
-    width: 100%;
-    padding: 0.7rem;
-    background: #d4fc79;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #2c7744;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 1rem;
+    font-size: 0.9rem;
+    padding: 0.6rem;
   }
-  
-  .login-button:hover {
-    background: #a8e063;
+
+  .register-link {
+    font-size: 0.8rem;
   }
-  
-  .login-button:focus {
-    outline: none;
-    box-shadow: 0 0 5px #d4fc79;
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 120px; /* Ukuran logo lebih kecil */
   }
+
+  .login-container {
+    padding: 1rem;
+  }
+
+  .login-form h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+  }
+
+  .form-group input {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  .login-button {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+  .register-link {
+    font-size: 0.75rem;
+  }
+}

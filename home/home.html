@@ -9,17 +9,18 @@
 </head>
 <body>
   <header class="header">
-    <div class="logo"><img src="C:\Users\ASUS\Documents\Sekul telu\Materi\PBO\TUGAS BESAR\FE\image\logo.png" ></div>
-    <nav>
+    <div class="logo">
+      <img src="../image/logo.png" alt="GoHealthy Logo" class="logo-img">
+    </div>
+    <nav class="navbar">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Artikel</a></li>
-        <li><a href="#">Riwayat</a></li>
+        <li><a href="../home/home.html">Home</a></li>
+        <li><a href="../artikel/artikel.html">Artikel</a></li>
+        <li><a href="../pola/pola.html">Riwayat</a></li>
       </ul>
     </nav>
     <div class="icons">
-      <button id="notification-btn" class="icon-btn">🔔</button>
-      <button id="profile-btn" class="icon-btn">👤</button>
+      <span id="profile-btn" class="icon-text">Profile</span>
     </div>
   </header>
   
@@ -27,13 +28,12 @@
     <section class="hero">
       <div class="hero-text">
         <h1>Teman Sejati Perjalanan Sehat Anda</h1>
-        <p>Atur pola makan, pengingat minum obat, edukasi kesehatan, dan penjadwalan kegiatan. GoHealthy siap membantu!</p>
+        <p>Atur pola makan, edukasi kesehatan, dan penjadwalan kegiatan. GoHealthy siap membantu!</p>
       </div>
       <div class="features">
-        <div class="feature">Atur Pola Makan</div>
-        <div class="feature">Pengingat Minum Obat</div>
-        <div class="feature">Edukasi Kesehatan</div>
-        <div class="feature">Penjadwalan Kegiatan</div>
+        <a class="feature" href="../pola/pola.html">Atur Pola Makan</a>
+        <a class="feature" href="../artikel/artikel.html">Edukasi Kesehatan</a>
+        <a class="feature" href="../schedule/schedule.html">Penjadwalan Kegiatan</a>
       </div>
     </section>
     <section class="quote">
@@ -41,26 +41,13 @@
     </section>
     <section class="content">
       <h2>Artikel Populer</h2>
-      <div class="articles">
-        <article>
-          <img src="img1.jpg" alt="Kanker Lambung">
-          <h3>Waspadai Gejala Kanker Lambung, Sekilas Mirip dengan Sakit Maag</h3>
-          <p>154 <span>❤️</span> Trending</p>
-        </article>
-        <article>
-          <img src="img2.jpg" alt="Daging Merah">
-          <h3>Sering Makan Daging Merah Bisa Picu Kanker, Benarkah? Ini Faktanya</h3>
-          <p>114 <span>❤️</span></p>
-        </article>
-        <article>
-          <img src="img3.jpg" alt="Air Garam">
-          <h3>Benarkah Kumur Air Garam Bisa Atasi Sariawan?</h3>
-          <p>64 <span>❤️</span></p>
-        </article>
+      <div class="articles" id="articles-container">
+        <!-- Artikel akan ditambahkan di sini secara dinamis -->
       </div>
     </section>
+    <a id="hospital-btn" class="floating-btn" href="https://wa.me/+6281119990770" target="_blank" rel="noopener noreferrer">🏥 Hospital Call</a>
   </main>
-
+  
   <script src="home.js"></script>
 </body>
 </html>

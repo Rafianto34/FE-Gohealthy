@@ -7,25 +7,22 @@
   <link rel="stylesheet" href="inputmakan.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
-    <div class="logo"><img src="C:\Users\ASUS\Documents\Sekul telu\Materi\PBO\TUGAS BESAR\FE\image\logo.png" ></div>
+    <div class="logo">
+      <img src="../image/logo.png" alt="Logo">
+    </div>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Artikel</a></li>
-        <li><a href="#">Riwayat</a></li>
+        <li><a href="../home/home.html">Home</a></li>
+        <li><a href="../artikel/artikel.html">Artikel</a></li>
+        <li><a href="../pola/pola.html">Riwayat</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main class="main-container">
     <h1>DATA <br> SCHEDULE</h1>
-
-    <!-- Schedule Form -->
     <section class="schedule-form">
-      <!-- Header Form -->
       <div class="form-header">
         <select id="category" onchange="updateForm()">
           <option value="makan">Makan</option>
@@ -36,21 +33,10 @@
         <input type="time" id="time-input">
         <button id="add-btn">Add</button>
       </div>
-
-      <!-- Dynamic Form Body -->
       <div class="form-body" id="form-body">
         <div class="left-section">
           <label for="judul">Judul</label>
           <input type="text" id="judul" placeholder="Masukkan Judul">
-
-          <!-- Dynamic Fields -->
-          <div id="dynamic-fields">
-            <label for="nama">Nama Makanan</label>
-            <input type="text" id="nama" placeholder="Nama Makanan">
-
-            <label for="kalori">Total Kalori</label>
-            <input type="number" id="kalori" placeholder="Kalori">
-          </div>
         </div>
         <div class="right-section">
           <label for="catatan">Catatan</label>
