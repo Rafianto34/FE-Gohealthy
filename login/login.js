@@ -6,7 +6,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
 
   try {
     // Konsumsi API untuk login
-    const response = await fetch('https://be-gohealthy-production.up.railway.app/auth/login', {
+    const response = await fetch('https://be-gohealthy-production.up.railway.app/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
-        window.location.href = '../home/home.html'; // Pastikan URL ini benar
+        window.location.href = '/home'; // Pastikan URL ini benar
       });
     } else {
       // Tangani kesalahan login
@@ -36,7 +36,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
       Swal.fire({
         icon: 'error',
         title: 'Login gagal',
-        text: error.message || 'Username atau password salah.',
+        text: error.message || 'Email atau password salah.',
       });
     }
   } catch (err) {
