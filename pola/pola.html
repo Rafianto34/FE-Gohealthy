@@ -1,61 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atur Pola Makan & Riwayat</title>
-  <link rel="stylesheet" href="pola.css">
-</head>
-<body>
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      <img src="../image/logo.png" alt="GoHealthy Logo" class="logo-img">
-    </div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="../home/home.html">Home</a></li>
-        <li><a href="../artikel/artikel.html">Artikel</a></li>
-        <li><a href="../pola/pola.html">Riwayat</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Main Container -->
-  <main class="main-container">
-    <!-- Form Section -->
-    <section class="form-section">
-      <h2>Atur Pola Makan</h2>
-      <form>
-        <div class="form-group">
-          <label for="date">Tanggal:</label>
-          <input type="date" id="date" required>
-        </div>
-        <div class="form-group">
-          <label for="food">Nama Makanan/Minuman:</label>
-          <input type="text" id="food" placeholder="Nama makanan/minuman" required>
-        </div>
-        <div class="form-group">
-          <label for="calories">Total Kalori:</label>
-          <input type="number" id="calories" placeholder="Kalori makanan/minuman" required>
-        </div>
-        <div class="form-group">
-          <label for="quantity">Quantity:</label>
-          <input type="number" id="quantity" placeholder="Jumlah porsi" required>
-        </div>
-        <button type="submit" id="save-button">Simpan</button>
-      </form>
-    </section>
-
-    <!-- History Section -->
-    <section class="history-section">
-      <h2>Hasil Riwayat</h2>
-      <div class="history-list">
-        <!-- Riwayat akan dimasukkan di sini secara dinamis -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atur Pola Makan & Riwayat</title>
+    <link rel="stylesheet" href="pola.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <img src="../image/logo.png" alt="GoHealthy Logo" class="logo-img" />
       </div>
-    </section>
-  </main>
+      <nav class="navbar">
+        <ul>
+          <li><a href="../home/home.html">Home</a></li>
+          <li><a href="../artikel/artikel.html">Artikel</a></li>
+          <li><a href="../pola/pola.html">Riwayat</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <script src="pola.js"></script>
-</body>
+    <!-- Main Container -->
+    <main class="main-container">
+      <!-- Form Section -->
+      <section class="form-section">
+        <h2>Atur Pola Makan</h2>
+        <form>
+          <div class="form-group">
+            <label for="date">Tanggal:</label>
+            <input type="date" id="date" required />
+          </div>
+          <div class="form-group">
+            <label for="food">Nama Makanan/Minuman:</label>
+            <input
+              type="text"
+              id="food"
+              placeholder="Nama makanan/minuman"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="calories">Total Kalori:</label>
+            <input
+              type="number"
+              id="calories"
+              placeholder="Kalori makanan/minuman"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input
+              type="number"
+              id="quantity"
+              placeholder="Jumlah porsi"
+              required
+            />
+          </div>
+          <button type="submit" id="save-button">Simpan</button>
+        </form>
+      </section>
+
+      <section class="history-section">
+        <h2>Hasil Riwayat</h2>
+        <div class="history-list">
+          <!-- Riwayat makanan akan ditampilkan di sini -->
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="pola.js"></script>
+  </body>
 </html>
