@@ -6,8 +6,15 @@ const PORT = 3000;
 
 // Middleware untuk mengatur folder public
 app.use(express.static(path.join(__dirname)));
+app.use('/admin/static', express.static(path.join(__dirname, 'FE-Gohealthy-Admin', 'HOME_ADMIN')));
+
 
 // Routing untuk FE-Gohealthy
+
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname, 'landing.html'));
+});
+
 app.get('/artikel', (req, res) => {
   res.sendFile(path.join(__dirname, 'artikel', 'artikel.html'));
 });
@@ -50,14 +57,14 @@ app.get('/admin/artikel', (req, res) => {
 });
 
 app.get('/admin/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'HOME ADMIN', 'login.html'));
+  res.sendFile(path.join(__dirname, 'FE-Gohealthy-Admin', 'HOME_ADMIN', 'login.html')); 
 });
 
 app.get('/admin/queto', (req, res) => {
-  res.sendFile(path.join(__dirname, 'QUETOADMIN', 'quete.html'));
+  res.sendFile(path.join(__dirname, 'FE-Gohealthy-Admin', 'QUETOADMIN', 'quete.html'));
 });
 
 // Menjalankan server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}/login`);
 });
