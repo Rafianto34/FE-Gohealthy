@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/api'; // Ganti dengan URL API Anda
+const BASE_URL = 'https://be-gohealthy-production.up.railway.app/api/schedule'; // Ganti dengan URL API Anda
 const scheduleContainer = document.getElementById('schedule-container');
 
 // Fungsi untuk memuat jadwal dari API

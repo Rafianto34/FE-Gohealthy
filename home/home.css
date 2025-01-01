@@ -158,6 +158,26 @@ article p {
   background: #45a049;
 }
 
+/* Profile Button Styling */
+#profile-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #2c7744, #3e9a5c);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#profile-btn:hover {
+  background: #45a049;
+  transform: scale(1.1);
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
   .header {
