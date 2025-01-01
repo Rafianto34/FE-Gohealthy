@@ -39,7 +39,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
   try {
     // Kirim data ke API menggunakan fetch
-    const response = await fetch("https://example.com/api/register", {
+    const response = await fetch("https://be-gohealthy-production.up.railway.app/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         title: 'Berhasil',
         text: 'Registrasi berhasil!',
       }).then(() => {
-        window.location.href = '../login.html';
+        window.location.href = '/login';
       });
     } else {
       Swal.fire({
