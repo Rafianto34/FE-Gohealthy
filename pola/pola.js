@@ -1,28 +1,43 @@
 const saveButton = document.getElementById('save-button');
 const historyList = document.querySelector('.history-list');
-
+const BASE_URL = 'https://be-gohealthy-production.up.railway.app/api/';
 // Fungsi untuk memuat riwayat dari API
 const loadHistory = async () => {
   try {
-    const response = await fetch('https://api.example.com/food-history');
-    if (!response.ok) throw new Error('Gagal memuat data!');
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Unauthorized: Token is missing!');
+
+    const response = await fetch(`${BASE_URL}users/food-consumption`, {
+      method: 'GET',
+      headers: {
+        
+        'X-API-TOKEN': token,
+      },
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.errors || 'Gagal memuat data!');
+    }
+
     const historyData = await response.json();
 
     // Clear existing history
     historyList.innerHTML = '';
 
     // Render data dari API
-    historyData.forEach(item => {
+    historyData.data.forEach((item) => {
       const historyItem = document.createElement('div');
       historyItem.classList.add('history-item');
       historyItem.innerHTML = `
-        <p><strong>${item.food}:</strong> ${item.calories} kal (x${item.quantity})</p>
-        <p>Total Kalori: ${item.totalCalories} kal</p>
-        <span>${new Date(item.date).toLocaleDateString()}</span>
+        <p><strong>${item.foodName}:</strong> ${item.calories} kal (x${item.quantity})</p>
+        <p>Total Kalori: ${item.calories * item.quantity} kal</p>
+        <span>${new Date(item.consumptionDate).toLocaleDateString()}</span>
       `;
       historyList.appendChild(historyItem);
     });
   } catch (error) {
+    console.error('Load history error:', error.message);
     alert(error.message);
   }
 };
@@ -30,18 +45,39 @@ const loadHistory = async () => {
 // Fungsi untuk menyimpan data ke API
 const saveHistory = async (data) => {
   try {
-    const response = await fetch('https://api.example.com/food-history', {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Unauthorized: Token is missing!');
+
+    const response = await fetch(`${BASE_URL}food-consumption`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-API-TOKEN': token,
       },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Gagal menyimpan data!');
 
-    // Reload history setelah data berhasil disimpan
-    loadHistory();
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.errors || 'Gagal menyimpan data!');
+    }
+
+    const responseData = await response.json();
+    console.log('Data berhasil disimpan:', responseData);
+
+    // Tampilkan data yang baru disimpan di riwayat tanpa reload
+    const historyItem = document.createElement('div');
+    historyItem.classList.add('history-item');
+    historyItem.innerHTML = `
+      <p><strong>${data.foodName}:</strong> ${data.calories} kal (x${data.quantity})</p>
+      <p>Total Kalori: ${data.calories * data.quantity} kal</p>
+      <span>${new Date(data.consumptionDate).toLocaleDateString()}</span>
+    `;
+    historyList.appendChild(historyItem);
+
+    alert('Data berhasil disimpan!');
   } catch (error) {
+    console.error('Save history error:', error.message);
     alert(error.message);
   }
 };
@@ -56,14 +92,11 @@ saveButton.addEventListener('click', (e) => {
   const quantity = document.getElementById('quantity').value;
 
   if (date && food && calories && quantity) {
-    const totalCalories = calories * quantity;
-
     const data = {
-      date,
-      food,
-      calories: parseInt(calories, 10),
+      foodName: food,
+      calories: parseFloat(calories),
+      consumptionDate: new Date(date).toISOString(),
       quantity: parseInt(quantity, 10),
-      totalCalories,
     };
 
     // Simpan data ke API

@@ -9,6 +9,11 @@ app.use(express.static(path.join(__dirname)));
 app.use('/admin/static', express.static(path.join(__dirname, 'FE-Gohealthy-Admin', 'HOME_ADMIN')));
 
 
+app.get('/images', (req, res) => {
+  res.sendFile(path.join(__dirname, 'image', 'logo.png'));
+});
+
+
 // Routing untuk FE-Gohealthy
 
 app.get('/landing', (req, res) => {
@@ -57,11 +62,11 @@ app.get('/admin/artikel', (req, res) => {
 });
 
 app.get('/admin/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'FE-Gohealthy-Admin', 'HOME_ADMIN', 'login.html')); 
+  res.sendFile(path.join(__dirname,'HOME_ADMIN', 'homead.html')); 
 });
 
 app.get('/admin/queto', (req, res) => {
-  res.sendFile(path.join(__dirname, 'FE-Gohealthy-Admin', 'QUETOADMIN', 'quete.html'));
+  res.sendFile(path.join(__dirname,'QUETOADMIN', 'quete.html'));
 });
 
 // Menjalankan server
