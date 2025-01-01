@@ -8,7 +8,7 @@ const token = encryptedToken
   : null;
 
 // API URL
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'https://be-gohealthy-production.up.railway.app/api';
 
 // Cek jika token tersedia
 if (!token) {
@@ -18,7 +18,7 @@ if (!token) {
     text: 'Silakan login kembali.',
     confirmButtonText: 'OK'
   }).then(() => {
-    window.location.href = './login.html';
+    window.location.href = '/login';
   });
 }
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Event untuk tombol profil
 document.getElementById('profile-btn').addEventListener('click', async () => {
   try {
-    const response = await fetch(`${BASE_URL}/user/profile`, {
+    const response = await fetch(`${BASE_URL}/users/current`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ document.getElementById('profile-btn').addEventListener('click', async () => {
           window.location.href = './edit-profile.html';
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           localStorage.clear();
-          window.location.href = './login.html';
+          window.location.href = '/login';
         }
       });
     } else {

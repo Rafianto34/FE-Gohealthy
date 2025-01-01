@@ -16,20 +16,31 @@ document.getElementById('login-form').addEventListener('submit', async function 
 
     if (response.ok) {
       const result = await response.json();
+      const role = result.data.role;
 
       // Simpan token ke localStorage (tanpa enkripsi)
       const token = result.data.token;
       localStorage.setItem('token', token);
 
-      // Notifikasi sukses dan redirect
-      Swal.fire({
-        icon: 'success',
-        title: 'Login berhasil!',
-        showConfirmButton: false,
-        timer: 1500
-      }).then(() => {
-        window.location.href = '/home'; // Pastikan URL ini benar
-      });
+      if (role == "ADMIN"){
+        Swal.fire({
+          icon: 'success',
+          title: 'Login berhasil!',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          window.location.href = '/admin/home'; // Pastikan URL ini benar
+        });
+      }else {
+        Swal.fire({
+          icon: 'success',
+          title: 'Login berhasil!',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          window.location.href = '/home'; // Pastikan URL ini benar
+        });
+      }
     } else {
       // Tangani kesalahan login
       const error = await response.json();

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Quotes</title>
+  <link rel="stylesheet" href="quete.css">
+</head>
+<body>
+  <header class="header">
+    <a href="../HOME_ADMIN/login.html" class="article-link">Artikel</a>
+    <div class="logo">
+      <img src="/FE-Gohealthy/image/logo.png" alt="GoHealthy Logo" class="logo-img">
+    </div>
+  </header>
+  
+  <main class="main">
+    <h2 class="admin-title">SELAMAT DATANG DI DASHBOARD ADMIN</h2>
+    <section class="quotes-section">
+      <div class="container">
+        <h3 class="section-title">QUOTES</h3>
+        <div class="quotes-form">
+          <input type="text" id="quoteInput" class="quote-input" placeholder="Tambahkan quote baru">
+          <button id="uploadButton" class="upload-button">UNGGAH</button>
+        </div>
+        <table class="quote-table">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Quote</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="quoteTableBody">
+            <tr>
+              <td>1</td>
+              <td>Hidup sehat bukan soal pilihan, tetapi kebutuhan untuk masa depan yang lebih baik</td>
+              <td>
+                <button class="edit-quote">Edit</button>
+                <button class="delete-quote">Hapus</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Selamat hari kamis, untuk mu yang selalu manis</td>
+              <td>
+                <button class="edit-quote">Edit</button>
+                <button class="delete-quote">Hapus</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>PC keren, memang kentang tapi aku akan terbang melebihi bintang</td>
+              <td>
+                <button class="edit-quote">Edit</button>
+                <button class="delete-quote">Hapus</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="quete.js"></script>
+</body>
+</html>
