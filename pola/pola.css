@@ -72,11 +72,11 @@ body {
 }
 
 .form-section {
-  background: #C8E6C9;
+  background: #c8e6c9;
 }
 
 .history-section {
-  background: #A5D6A7;
+  background: #a5d6a7;
 }
 
 .form-section h2,
@@ -106,7 +106,7 @@ body {
 #save-button {
   display: block;
   margin-top: 1rem;
-  background-color: #388E3C;
+  background-color: #388e3c;
   color: white;
   border: none;
   padding: 0.75rem;
@@ -116,9 +116,12 @@ body {
 }
 
 .history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   margin-bottom: 1rem;
-  background: #E8F5E9;
+  background: #e8f5e9;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -132,6 +135,37 @@ body {
   margin-top: 0.5rem;
   color: gray;
   font-size: 0.85rem;
+}
+
+.history-item .buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.history-item button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.history-item .edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.history-item .edit-button:hover {
+  background-color: #45a049;
+}
+
+.history-item .delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.history-item .delete-button:hover {
+  background-color: #e53935;
 }
 
 /* Responsive Design */
@@ -192,6 +226,90 @@ body {
   }
 
   .history-item {
-    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .history-item p {
+    margin: 0;
+  }
+
+  .history-item span {
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  .history-item .buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .history-item button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .history-item .edit-button {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .history-item .edit-button:hover {
+    background-color: #45a049;
+  }
+
+  .history-item .delete-button {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .history-item .delete-button:hover {
+    background-color: #e53935;
+  }
+  .success-animation {
+    animation: fadeInOut 2s ease-in-out;
+  }
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+
+  .custom-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+  }
+
+  .custom-alert.show {
+    display: block;
   }
 }
