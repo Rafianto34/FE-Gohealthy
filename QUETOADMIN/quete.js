@@ -1,108 +1,97 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const quoteInput = document.getElementById("quoteInput");
-  const uploadButton = document.getElementById("uploadButton");
-  const quoteTableBody = document.getElementById("quoteTableBody");
-  const API_URL = "https://jsonplaceholder.typicode.com/posts"; // API contoh, ganti sesuai API Anda
+const token = localStorage.getItem("token")
+document.addEventListener('DOMContentLoaded', () => {
+  const quoteInput = document.getElementById('quoteInput');
+  const uploadButton = document.getElementById('uploadButton');
+  const quoteTableBody = document.getElementById('quoteTableBody');
 
-  // Fetch quotes dari API dan render ke tabel
-  async function loadQuotes() {
+
+  // Endpoint API dan token
+  const apiUrl = 'https://be-gohealthy-production.up.railway.app/api/'; // Sesuaikan dengan endpoint yang benar
+ 
+
+  // Fungsi untuk menambahkan quote baru
+  async function addQuote(quoteText) {
     try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-
-      // Hapus konten tabel sebelumnya
-      quoteTableBody.innerHTML = "";
-
-      // Loop untuk menambahkan data ke tabel
-      data.forEach((quote, index) => {
-        const newRow = quoteTableBody.insertRow();
-
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
-
-        cell1.textContent = index + 1; // Nomor
-        cell2.textContent = quote.title; // Text quote dari API
-        cell3.innerHTML = `
-          <button class="edit-quote">Edit</button>
-          <button class="delete-quote">Hapus</button>
-        `;
+      const response = await fetch(`${apiUrl}motivation`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-TOKEN': token,
+        },
+        body: JSON.stringify({ quote: quoteText }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result.errors) {
+        console.error('API Errors:', result.errors);
+        alert('Gagal menambahkan quote. Silakan coba lagi.');
+        return;
+      }
+
+      alert('Quote berhasil ditambahkan!');
+      loadQuotes(); // Perbarui tabel dengan data terbaru
     } catch (error) {
-      console.error("Error fetching quotes:", error);
+      console.error('Terjadi kesalahan saat menambahkan quote:', error);
+      alert('Gagal menambahkan quote. Silakan coba lagi.');
     }
   }
 
-  // Tambah quote baru
-  uploadButton.addEventListener("click", async () => {
-    const quoteText = quoteInput.value.trim();
-    if (quoteText) {
-      try {
-        // Simulasi POST ke API
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: quoteText,
-          }),
-        });
+  // Fungsi untuk memuat data quotes
+  async function loadQuotes() {
+    try {
+      const response = await fetch(`${apiUrl}motivations`, {
+        method : 'GET',
+        headers: {
+          'X-API-TOKEN': apiToken,
+        },
+      });
 
-        if (response.ok) {
-          alert("Quote berhasil ditambahkan!");
-          quoteInput.value = "";
-          loadQuotes(); // Refresh tabel
-        } else {
-          alert("Gagal menambahkan quote.");
-        }
-      } catch (error) {
-        console.error("Error adding quote:", error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
+      const result = await response.json();
+      renderQuotes(result.data); // Asumsikan data response berisi array quotes
+    } catch (error) {
+      console.error('Gagal memuat data quotes:', error);
     }
-  });
+  }
 
-  // Handle table actions (edit, delete)
-  quoteTableBody.addEventListener("click", (e) => {
-    const target = e.target;
+  // Fungsi untuk menampilkan data quotes di tabel
+  function renderQuotes(quotes) {
+    quoteTableBody.innerHTML = ''; // Bersihkan tabel sebelum menambahkan data baru
+    quotes.forEach((quote, index) => {
+      const row = document.createElement('tr');
 
-    if (target.classList.contains("delete-quote")) {
-      // Hapus quote
-      const row = target.closest("tr");
-      row.remove();
-      updateTableIndexes();
-    } else if (target.classList.contains("edit-quote")) {
-      // Edit quote
-      const row = target.closest("tr");
-      const quoteCell = row.cells[1];
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${quote.text}</td>
+        <td>
+          <button class="edit-quote">Edit</button>
+          <button class="delete-quote">Hapus</button>
+        </td>
+      `;
 
-      // Buat input untuk edit jika belum ada
-      if (!quoteCell.querySelector("input")) {
-        const currentText = quoteCell.textContent.trim();
-        quoteCell.innerHTML = `
-          <input type="text" value="${currentText}" class="edit-input">
-          <button class="save-quote">Save</button>
-        `;
-      }
-    } else if (target.classList.contains("save-quote")) {
-      // Simpan quote yang diedit
-      const row = target.closest("tr");
-      const quoteCell = row.cells[1];
-      const editInput = quoteCell.querySelector(".edit-input");
-
-      if (editInput) {
-        quoteCell.innerHTML = editInput.value.trim();
-      }
-    }
-  });
-
-  // Update nomor indeks tabel setelah penghapusan
-  function updateTableIndexes() {
-    [...quoteTableBody.rows].forEach((row, index) => {
-      row.cells[0].textContent = index + 1;
+      quoteTableBody.appendChild(row);
     });
   }
 
-  // Load quotes saat halaman dimuat
+  // Event listener untuk tombol "Unggah"
+  uploadButton.addEventListener('click', () => {
+    const quoteText = quoteInput.value.trim();
+    if (quoteText === '') {
+      alert('Quote tidak boleh kosong!');
+      return;
+    }
+
+    addQuote(quoteText);
+    quoteInput.value = ''; // Kosongkan input setelah upload
+  });
+
+  // Muat data quotes saat halaman dimuat
   loadQuotes();
 });

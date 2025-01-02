@@ -1,0 +1,57 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile - GoHealthy</title>
+    <link rel="stylesheet" href="editprof.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="logo">
+        <img src="../image/logo.png" alt="GoHealthy Logo" />
+      </h1>
+    </header>
+
+    <main class="profile-container">
+      <form id="edit-profile-form" class="profile-form" method="post">
+        <h2>Edit Profile</h2>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Masukkan username"
+            
+          />
+        </div>
+        <div class="form-group">
+            <label for="edit-new-password">Password Baru</label>
+            <input
+              type="password"
+              id="edit-new-password"
+              name="new-password"
+              placeholder="Masukkan password baru"
+            />
+          </div>
+          <div class="form-group">
+            <label for="edit-confirm-password">Konfirmasi Password</label>
+            <input
+              type="password"
+              id="edit-confirm-password"
+              name="confirm-password"
+              placeholder="Konfirmasi password baru"
+            />
+          </div>
+        <button type="submit" class="save-button">Simpan Perubahan</button>
+        <button type="button" class="back-button">Kembali</button>
+      </form>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+      <script src="editprof.js"></script>
+    </main>
+  </body>
+</html>

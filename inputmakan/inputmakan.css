@@ -64,6 +64,23 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.add-button {
+  width: 100%;
+    padding: 0.7rem;
+    background: #d4fc79;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #2c7744;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.add-button:hover {
+  background: #a8e063;
+}
+
 .form-header {
   display: flex;
   flex-wrap: wrap;

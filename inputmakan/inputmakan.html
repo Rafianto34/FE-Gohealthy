@@ -15,37 +15,48 @@
       <ul>
         <li><a href="../home/home.html">Home</a></li>
         <li><a href="../artikel/artikel.html">Artikel</a></li>
-        <li><a href="../pola/pola.html">Riwayat</a></li>
+        <li><a href="../schedule/schedule.html">Daftar Kegiatan</a></li>
       </ul>
     </nav>
   </header>
 
   <main class="main-container">
     <h1>DATA <br> SCHEDULE</h1>
-    <section class="schedule-form">
-      <div class="form-header">
-        <select id="category" onchange="updateForm()">
-          <option value="makan">Makan</option>
-          <option value="obat">Obat</option>
-          <option value="olahraga">Olahraga</option>
-        </select>
-        <input type="date" id="date-input">
-        <input type="time" id="time-input">
-        <button id="add-btn">Add</button>
+    <form id="scheduleForm">
+      <div class="mb-3">
+        <label for="scheduleName" class="form-label">Schedule Name</label>
+        <input type="text" class="form-control" id="scheduleName" required />
       </div>
-      <div class="form-body" id="form-body">
-        <div class="left-section">
-          <label for="judul">Judul</label>
-          <input type="text" id="judul" placeholder="Masukkan Judul">
-        </div>
-        <div class="right-section">
-          <label for="catatan">Catatan</label>
-          <textarea id="catatan" placeholder="Masukkan Catatan"></textarea>
-        </div>
+      <div class="mb-3">
+        <label for="scheduleDescription" class="form-label"
+          >Schedule Description</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="scheduleDescription"
+          required
+        />
       </div>
-    </section>
+      <div class="mb-3">
+        <label for="scheduleTime" class="form-label">Schedule Time</label>
+        <input
+          type="datetime-local"
+          class="form-control"
+          id="scheduleTime"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="scheduleType" class="form-label">Schedule Type</label>
+        <input type="text" class="form-control" id="scheduleType" required />
+      </div>
+      <button type="submit" class="add-button">Add</button>
+    </form>
+  </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="inputmakan.js"></script>
 </body>
 </html>

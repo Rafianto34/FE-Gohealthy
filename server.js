@@ -17,7 +17,7 @@ app.get('/images', (req, res) => {
 // Routing untuk FE-Gohealthy
 
 app.get('/landing', (req, res) => {
-  res.sendFile(path.join(__dirname, 'landing.html'));
+  res.sendFile(path.join(__dirname, 'landing', 'landing.html'));
 });
 
 app.get('/artikel', (req, res) => {
@@ -68,8 +68,11 @@ app.get('/admin/home', (req, res) => {
 app.get('/admin/queto', (req, res) => {
   res.sendFile(path.join(__dirname,'QUETOADMIN', 'quete.html'));
 });
+app.get('/admin/queto', (req, res) => {
+  res.sendFile(path.join(__dirname,'QUETOADMIN', 'quete.js'));
+});
 
 // Menjalankan server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/login`);
+  console.log(`Server is running on http://localhost:${PORT}/landing`);
 });
