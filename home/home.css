@@ -217,4 +217,129 @@ article p {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
   }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c7744;
+    margin-bottom: 2rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .article-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 1.5rem;
+  }
+
+  .article-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .article-card h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2c7744;
+    font-weight: bold;
+  }
+
+  .article-card p {
+    color: #555;
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+
+  .article-card small {
+    display: block;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1rem;
+  }
+
+  .article-card .read-more {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #2c7744;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .article-card .read-more:hover {
+    background-color: #1e5e33;
+  }
+  .quote {
+    background: linear-gradient(135deg, #4caf50, #81c784); /* Warna hijau segar */
+    padding: 20px; /* Ruang dalam */
+    text-align: center; /* Teks rata tengah */
+    border-radius: 10px; /* Sudut melengkung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+    margin: 20px auto; /* Jarak antar elemen */
+    width: 80%; /* Lebar elemen relatif ke layar */
+    max-width: 1200px; /* Batas maksimal lebar untuk layar besar */
+  }
+  
+  .quote-container {
+    font-size: 1.5rem; /* Ukuran teks relatif */
+    font-style: italic;
+    font-family: "Georgia", serif; /* Gaya font */
+    color: white; /* Warna teks */
+    line-height: 1.8; /* Jarak antar baris */
+    opacity: 0; /* Awal animasi */
+    transform: translateY(20px); /* Awal animasi */
+    animation: fadeIn 1s ease-in-out forwards; /* Animasi fade-in */
+  }
+  
+  .quote-container::before,
+  .quote-container::after {
+    content: '“'; /* Tanda kutip pembuka */
+    font-size: 2rem; /* Ukuran tanda kutip */
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5); /* Warna semi-transparan */
+  }
+  
+  .quote-container::after {
+    content: '”'; /* Tanda kutip penutup */
+    margin-left: 5px;
+  }
+  
+  /* Animasi Fade-In */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Media Query untuk Layar Lebar */
+  @media (min-width: 1024px) {
+    .quote {
+      padding: 30px; /* Ruang lebih besar untuk layar besar */
+      font-size: 1.8rem; /* Ukuran teks lebih besar */
+    }
+  
+    .quote-container::before,
+    .quote-container::after {
+      font-size: 3rem; /* Tanda kutip lebih besar di desktop */
+    }
+  }
 }

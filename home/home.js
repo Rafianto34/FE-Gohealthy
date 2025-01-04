@@ -1,4 +1,4 @@
-// Ambil token dan salt dari localStorage
+
 const token = localStorage.getItem("token");
 
 
@@ -20,42 +20,111 @@ if (!token) {
 }
 
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const MOTIVATION_URL = "https://be-gohealthy-production.up.railway.app/api/motivations";
+  const quoteSection = document.querySelector(".quote"); 
+  const token = localStorage.getItem("token"); 
+  let quotes = []; 
+  let currentQuoteIndex = 0; 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const articlesData = [
-    {
-      image: "img1.jpg",
-      title: "Waspadai Gejala Kanker Lambung, Sekilas Mirip dengan Sakit Maag",
-    },
-    {
-      image: "img2.jpg",
-      title: "Sering Makan Daging Merah Bisa Picu Kanker, Benarkah? Ini Faktanya",
-    },
-    {
-      image: "img3.jpg",
-      title: "Benarkah Kumur Air Garam Bisa Atasi Sariawan?",
-    },
-  ];
+  async function fetchQuotes() {
+    try {
+      const response = await fetch(MOTIVATION_URL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-TOKEN": token,
+        },
+      });
 
-  const articlesContainer = document.getElementById("articles-container");
+      if (!response.ok) {
+        throw new Error("Failed to fetch motivation quotes");
+      }
 
-  // Loop through articlesData to generate cards
-  articlesData.forEach((article) => {
-    const articleCard = document.createElement("article");
-    articleCard.classList.add("article");
+      const data = await response.json();
+     
+    
+      if (!Array.isArray(data.data) || data.data.length === 0) {
+        throw new Error("No quotes available");
+      }
 
-    articleCard.innerHTML = `
-      <img src="${article.image}" alt="${article.title}">
-      <h3>${article.title}</h3>
-    `;
+      quotes = data.data; 
+    } catch (error) {
+      console.error("Error fetching motivation quotes:", error);
+      quoteSection.textContent = "Failed to load quotes. Please try again later.";
+    }
+  }
 
-    articlesContainer.appendChild(articleCard);
-  });
+  function displayNextQuote() {
+    if (quotes.length === 0) {
+      return; 
+    }
+
+    const currentQuote = quotes[currentQuoteIndex];
+    quoteSection.textContent = `"${currentQuote.message}"`;
+
+    currentQuoteIndex++;
+
+   
+    if (currentQuoteIndex >= quotes.length) {
+      currentQuoteIndex = 0;
+    }
+  }
+
+
+  await fetchQuotes();
 
   
+  displayNextQuote();
+
+  
+  setInterval(displayNextQuote, 60 * 60 * 1000);
 });
 
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const API_URL = "https://be-gohealthy-production.up.railway.app/api/contents";
+  const articlesContainer = document.getElementById("articles-container");
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (data.errors) {
+      throw new Error("Error fetching articles");
+    }
+
+    const articles = data.data;
+
+    // Loop through articles and display them
+    articles.forEach(article => {
+      const articleCard = document.createElement("div");
+      articleCard.classList.add("article-card");
+
+      // Format article content and add to the DOM
+      articleCard.innerHTML = `
+        <div class="content">
+          <h3>${article.contentTitle}</h3>
+          <p>${article.bodyContent.substring(0, 150)}...</p>
+          <small>Published at: ${new Date(article.created_at).toLocaleString()}</small>
+         <a href="/pageartikel?id=${article.contentId}" class="read-more">Read More</a>
+        </div>
+      `;
+
+      articlesContainer.appendChild(articleCard);
+    });
+
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    articlesContainer.innerHTML = "<p>Failed to load articles. Please try again later.</p>";
+  }
+});
 document.addEventListener("DOMContentLoaded", () => {
   // Ganti dengan API yang sesuai atau gunakan untuk testing
   const token = localStorage.getItem("token") // Token untuk testing, ganti jika perlu
@@ -79,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
           title: `<h2 style="font-weight: bold;">PROFILE</h2>`,
           html: `
             <div style="text-align: center;">
-              <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
               <p><strong>Nama:</strong> ${profile.data.name}</p>
               <p><strong>Username:</strong> ${profile.data.username}</p>
               <p><strong>Email:</strong> ${profile.data.email}</p>
@@ -90,16 +158,47 @@ document.addEventListener("DOMContentLoaded", () => {
           showCancelButton: true,
           confirmButtonText: "Edit Profile",
           cancelButtonText: "Log Out",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Redirect ke halaman edit profile
-            window.location.href = "./edit-profile.html";
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // Log out user
-            localStorage.clear();
-            window.location.href = "/login";
-          }
-        });
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Redirect ke halaman edit profile
+              window.location.href = "/editprof/editprof.html";
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              // Log out user
+              const token = localStorage.getItem("token");
+              if (token) {
+                fetch("https://be-gohealthy-production.up.railway.app/api/auth/logout", {
+                  method: "DELETE",
+                  headers: {
+                    "X-API-TOKEN": token,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    if (data.data === "OK") {
+                      // Clear localStorage and redirect to login page
+                      localStorage.clear();
+                      window.location.href = "/login";
+                    } else {
+                      throw new Error("Logout failed");
+                    }
+                  })
+                  .catch((error) => {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Error",
+                      text: "Gagal logout: " + error.message,
+                    });
+                  });
+              } else {
+                // If token is not available
+                Swal.fire({
+                  icon: "error",
+                  title: "Error",
+                  text: "Token not found!",
+                });
+              }
+            }
+          });
       } else {
         Swal.fire({
           icon: "error",

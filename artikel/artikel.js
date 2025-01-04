@@ -1,51 +1,54 @@
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'https://be-gohealthy-production.up.railway.app/api';
+const token = localStorage.getItem("token");
 
-    // Ambil elemen kontainer artikel terkait
-    const relatedPostsContainer = document.getElementById('related-posts');
+// Ambil elemen kontainer artikel terkait
+const relatedPostsContainer = document.getElementById('related-posts');
 
-    // Fungsi untuk memuat artikel terkait
-    async function loadRelatedPosts() {
-      try {
-        const response = await fetch(`${BASE_URL}/articles`);
-        if (response.ok) {
-          const { data: articles } = await response.json();
+// Fungsi untuk memuat artikel terkait
+async function loadRelatedPosts() {
+  try {
+    const response = await fetch(`${BASE_URL}/contents`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-          // Kosongkan kontainer sebelum memuat artikel
-          relatedPostsContainer.innerHTML = '';
+    const data = await response.json();
 
-          // Loop melalui artikel dan tambahkan ke kontainer
-          articles.forEach(article => {
-            const postCard = document.createElement('article');
-            postCard.classList.add('post-card');
-            postCard.setAttribute('data-id', article.id);
-
-            postCard.innerHTML = `
-              <img src="${article.image}" alt="${article.title}">
-              <h3>${article.title}</h3>
-              <p>${article.description.substring(0, 100)}...</p>
-              <div class="post-footer">
-                <span>${article.author}</span>
-                <span>${new Date(article.date).toLocaleDateString()}</span>
-              </div>
-            `;
-
-            // Tambahkan event listener untuk artikel
-            postCard.addEventListener('click', () => {
-              alert(`Baca lebih lanjut tentang artikel ID: ${article.id}`);
-              // Redirect ke halaman detail artikel (opsional)
-              // window.location.href = `/page.html/${article.id}`;
-            });
-
-            // Tambahkan elemen ke dalam kontainer
-            relatedPostsContainer.appendChild(postCard);
-          });
-        } else {
-          relatedPostsContainer.innerHTML = '<p>Gagal memuat artikel terkait.</p>';
-        }
-      } catch (error) {
-        relatedPostsContainer.innerHTML = '<p>Terjadi kesalahan saat memuat artikel terkait.</p>';
-      }
+    if (data.errors) {
+      throw new Error("Error fetching articles");
     }
 
-    // Panggil fungsi untuk memuat data
-    loadRelatedPosts();
+    const articles = data.data;
+
+    // Kosongkan kontainer sebelum memuat artikel
+    relatedPostsContainer.innerHTML = '';
+
+    // Loop through articles and display them
+    articles.forEach(article => {
+      const articleCard = document.createElement("div");
+      articleCard.classList.add("article-card");
+
+      // Format article content and add to the DOM
+      articleCard.innerHTML = `
+        <div class="content">
+          <h3>${article.contentTitle}</h3>
+          <p>${article.bodyContent.substring(0, 150)}...</p>
+          <small>Published at: ${new Date(article.created_at).toLocaleString()}</small>
+          <a href="/pageartikel?id=${article.contentId}" class="read-more">Read More</a>
+        </div>
+      `;
+
+      // Tambahkan artikel ke dalam kontainer
+      relatedPostsContainer.appendChild(articleCard);
+    });
+
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    relatedPostsContainer.innerHTML = "<p>Failed to load articles. Please try again later.</p>";
+  }
+}
+
+// Panggil fungsi untuk memuat data setelah halaman dimuat
+document.addEventListener("DOMContentLoaded", loadRelatedPosts);
