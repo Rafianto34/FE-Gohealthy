@@ -236,138 +236,202 @@
 }
 
  </style>
-</head>
-<body>
-  <header class="header">
-    <div class="logo">
-      GoHealthy
-    </div>
-    <a class="article-link" href="/admin/home">Artikel</a>
-    <a class="article-link" href="/login">Logout</a>
-  </header>
-  
-  <main class="main">
-    <h2 class="admin-title">SELAMAT DATANG DI DASHBOARD ADMIN</h2>
-    <section class="quotes-section">
-      <div class="container">
-        <h3 class="section-title">QUOTES</h3>
-        <div class="quotes-form">
-          <input type="text" id="quoteInput" class="quote-input" placeholder="Tambahkan quote baru">
-          <button id="uploadButton" class="upload-button">UNGGAH</button>
-        </div>
-        <table class="quote-table">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Quote</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="quoteTableBody">
-          </tbody>
-        </table>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quotes</title>
+    <style>
+      /* Your existing styles */
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        GoHealthy
       </div>
-    </section>
-  </main>
-  <script >
-    const token = localStorage.getItem("token")
-document.addEventListener('DOMContentLoaded', () => {
-  const quoteInput = document.getElementById('quoteInput');
-  const uploadButton = document.getElementById('uploadButton');
-  const quoteTableBody = document.getElementById('quoteTableBody');
-
-
-  // Endpoint API dan token
-  const apiUrl = 'https://be-gohealthy-production.up.railway.app/api/'; // Sesuaikan dengan endpoint yang benar
- 
-
-  // Fungsi untuk menambahkan quote baru
-  async function addQuote(quoteText) {
-    try {
-      const response = await fetch(`${apiUrl}motivation`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-TOKEN': token,
-        },
-        body: JSON.stringify({ quote: quoteText }),
+      <a class="article-link" href="/admin/home">Artikel</a>
+      <a class="article-link" href="/login">Logout</a>
+    </header>
+    
+    <main class="main">
+      <h2 class="admin-title">SELAMAT DATANG DI DASHBOARD ADMIN</h2>
+      <section class="quotes-section">
+        <div class="container">
+          <h3 class="section-title">QUOTES</h3>
+          <div class="quotes-form">
+            <input type="text" id="quoteInput" class="quote-input" placeholder="Tambahkan quote baru">
+            <button id="uploadButton" class="upload-button">UNGGAH</button>
+          </div>
+          <table class="quote-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Quote</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="quoteTableBody">
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script>
+      const token = localStorage.getItem("token");
+      document.addEventListener('DOMContentLoaded', () => {
+        const quoteInput = document.getElementById('quoteInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const quoteTableBody = document.getElementById('quoteTableBody');
+        const apiUrl = 'https://be-gohealthy-production.up.railway.app/api/';
+  
+        async function addQuote(quoteText) {
+          try {
+            const response = await fetch(`${apiUrl}motivation`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-TOKEN': token,
+              },
+              body: JSON.stringify({ message: quoteText }),
+            });
+  
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+  
+            alert('Quote berhasil ditambahkan!');
+            loadQuotes();
+          } catch (error) {
+            console.error('Terjadi kesalahan saat menambahkan quote:', error);
+            alert('Gagal menambahkan quote. Silakan coba lagi.');
+          }
+        }
+  
+        async function loadQuotes() {
+          try {
+            const response = await fetch(`${apiUrl}motivations`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-TOKEN': token,
+              },
+            });
+  
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+  
+            const result = await response.json();
+            renderQuotes(result.data);
+          } catch (error) {
+            console.error('Gagal memuat data quotes:', error);
+          }
+        }
+  
+        function renderQuotes(quotes) {
+          quoteTableBody.innerHTML = '';
+          quotes.forEach((quote, index) => {
+            const row = document.createElement('tr');
+  
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td><input type="text" class="edit-input" value="${quote.message}" data-id="${quote.motivationId}" disabled></td>
+              <td>
+                <button class="edit-quote" data-id="${quote.motivationId}">Edit</button>
+                <button class="delete-quote" data-id="${quote.motivationId}">Hapus</button>
+              </td>
+            `;
+  
+            quoteTableBody.appendChild(row);
+          });
+        }
+  
+        async function deleteQuote(motivationId) {
+          try {
+            const response = await fetch(`${apiUrl}motivation/${motivationId}`, {
+              method: 'DELETE',
+              headers: {
+                'X-API-TOKEN': token,
+                'Content-Type': 'application/json',
+              },
+            });
+  
+            if (!response.ok) {
+              throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+  
+            alert('Quote berhasil dihapus.');
+            loadQuotes();
+          } catch (error) {
+            console.error('Gagal menghapus quote:', error);
+            alert('Gagal menghapus quote. Silakan coba lagi.');
+          }
+        }
+  
+        async function editQuote(motivationId, newMessage) {
+          try {
+            const response = await fetch(`${apiUrl}motivation/${motivationId}`, {
+              method: 'PUT',
+              headers: {
+                'X-API-TOKEN': token,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ message: newMessage }),
+            });
+  
+            if (!response.ok) {
+              throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+  
+            alert('Quote berhasil diperbarui.');
+            loadQuotes();
+          } catch (error) {
+            console.error('Gagal memperbarui quote:', error);
+            alert('Gagal memperbarui quote. Silakan coba lagi.');
+          }
+        }
+  
+        uploadButton.addEventListener('click', () => {
+          const quoteText = quoteInput.value.trim();
+          if (quoteText === '') {
+            alert('Quote tidak boleh kosong!');
+            return;
+          }
+  
+          addQuote(quoteText);
+          quoteInput.value = '';
+        });
+  
+        quoteTableBody.addEventListener('click', (event) => {
+          const target = event.target;
+  
+          if (target.classList.contains('delete-quote')) {
+            const quoteId = target.dataset.id;
+            if (confirm('Apakah Anda yakin ingin menghapus quote ini?')) {
+              deleteQuote(quoteId);
+            }
+          }
+  
+          if (target.classList.contains('edit-quote')) {
+            const quoteId = target.dataset.id;
+            const inputField = document.querySelector(`input[data-id='${quoteId}']`);
+            if (inputField.disabled) {
+              inputField.disabled = false;
+              target.textContent = 'Simpan';
+            } else {
+              const newMessage = inputField.value.trim();
+              if (newMessage === '') {
+                alert('Quote tidak boleh kosong!');
+                return;
+              }
+              editQuote(quoteId, newMessage);
+            }
+          }
+        });
+  
+        loadQuotes();
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      if (result.errors) {
-        console.error('API Errors:', result.errors);
-        alert('Gagal menambahkan quote. Silakan coba lagi.');
-        return;
-      }
-
-      alert('Quote berhasil ditambahkan!');
-      loadQuotes(); // Perbarui tabel dengan data terbaru
-    } catch (error) {
-      console.error('Terjadi kesalahan saat menambahkan quote:', error);
-      alert('Gagal menambahkan quote. Silakan coba lagi.');
-    }
-  }
-
-  // Fungsi untuk memuat data quotes
-  async function loadQuotes() {
-    try {
-      const response = await fetch(`${apiUrl}motivations`, {
-        method : 'GET',
-        headers: {
-          'X-API-TOKEN': token,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      renderQuotes(result.data); // Asumsikan data response berisi array quotes
-    } catch (error) {
-      console.error('Gagal memuat data quotes:', error);
-    }
-  }
-
-  // Fungsi untuk menampilkan data quotes di tabel
-  function renderQuotes(quotes) {
-    quoteTableBody.innerHTML = ''; // Bersihkan tabel sebelum menambahkan data baru
-    quotes.forEach((quote, index) => {
-      const row = document.createElement('tr');
-
-      row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${quote.text}</td>
-        <td>
-          <button class="edit-quote">Edit</button>
-          <button class="delete-quote">Hapus</button>
-        </td>
-      `;
-
-      quoteTableBody.appendChild(row);
-    });
-  }
-
-  // Event listener untuk tombol "Unggah"
-  uploadButton.addEventListener('click', () => {
-    const quoteText = quoteInput.value.trim();
-    if (quoteText === '') {
-      alert('Quote tidak boleh kosong!');
-      return;
-    }
-
-    addQuote(quoteText);
-    quoteInput.value = ''; // Kosongkan input setelah upload
-  });
-
-  // Muat data quotes saat halaman dimuat
-  loadQuotes();
-});
-
   </script>
 
 </body>

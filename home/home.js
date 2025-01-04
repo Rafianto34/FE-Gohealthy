@@ -1,4 +1,4 @@
-// Ambil token dan salt dari localStorage
+
 const token = localStorage.getItem("token");
 
 
@@ -19,6 +19,67 @@ if (!token) {
   });
 }
 
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const MOTIVATION_URL = "https://be-gohealthy-production.up.railway.app/api/motivations";
+  const quoteSection = document.querySelector(".quote"); 
+  const token = localStorage.getItem("token"); 
+  let quotes = []; 
+  let currentQuoteIndex = 0; 
+
+  async function fetchQuotes() {
+    try {
+      const response = await fetch(MOTIVATION_URL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-TOKEN": token,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch motivation quotes");
+      }
+
+      const data = await response.json();
+     
+    
+      if (!Array.isArray(data.data) || data.data.length === 0) {
+        throw new Error("No quotes available");
+      }
+
+      quotes = data.data; 
+    } catch (error) {
+      console.error("Error fetching motivation quotes:", error);
+      quoteSection.textContent = "Failed to load quotes. Please try again later.";
+    }
+  }
+
+  function displayNextQuote() {
+    if (quotes.length === 0) {
+      return; 
+    }
+
+    const currentQuote = quotes[currentQuoteIndex];
+    quoteSection.textContent = `"${currentQuote.message}"`;
+
+    currentQuoteIndex++;
+
+   
+    if (currentQuoteIndex >= quotes.length) {
+      currentQuoteIndex = 0;
+    }
+  }
+
+
+  await fetchQuotes();
+
+  
+  displayNextQuote();
+
+  
+  setInterval(displayNextQuote, 60 * 60 * 1000);
+});
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -87,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
           title: `<h2 style="font-weight: bold;">PROFILE</h2>`,
           html: `
             <div style="text-align: center;">
-              <img src="https://via.placeholder.com/100" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
               <p><strong>Nama:</strong> ${profile.data.name}</p>
               <p><strong>Username:</strong> ${profile.data.username}</p>
               <p><strong>Email:</strong> ${profile.data.email}</p>

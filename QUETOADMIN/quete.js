@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(`${apiUrl}motivations`, {
         method : 'GET',
         headers: {
-          'X-API-TOKEN': apiToken,
+          'X-API-TOKEN': token,
         },
       });
 
